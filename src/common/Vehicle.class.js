@@ -6,18 +6,26 @@ export class Vehicle {
         this.type = type
         this.brand = brand
         this.model = model
-        this.course = course
+        this.course = Number(course)
         this.price = Number(price)
         this.condition = condition
-
         this.id = v4()
+    }
+
+    chooseIcon() {
+        switch(this.type){
+            case 'Car' : return "fa-car"
+            case 'Truck' : return "fa-truck"
+            case 'Motor' : return "fa-motorcycle"
+            default : return ""
+        }
     }
 
     generateItem() {
         return `
             <div id="${this.id}" class="col-md-12 my-md-2 col-lg-4">
                 <div class="card border border-secondary">
-                    <div class="card-title text-center"><h3 class="my-2">${this.brand} ${this.model} <i class="fas fa-car"></i></h3></div>
+                    <div class="card-title text-center"><h3 class="my-2">${this.brand} ${this.model} <i class="fas ${this.chooseIcon()}"></i></h3></div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item test">Type: ${this.type}</li>
                         <li class="list-group-item">Course: ${this.course} km</li>
@@ -42,15 +50,23 @@ export class Vehicle {
                                 ${vehicleConditions.map((condition) => `<option>${condition.label}</option>`).join("")}
                             </select>
                         </div>
+                        </div class="d-flex">
+                            <input id="${this.id}-new-course-input" placeholder="New Course" class="form-control" type="number"/>
+                            <button id="${this.id}-change-course-button" class="ml-2 btn btn-success" style="width: 150px;">Edit Course</button>
+                        </div>
                     </div>
                 </div>
             </div>
         `
-    }
+        
+        }
+    
 
     assignDefaultInputValue() {
         const newPriceInput = document.getElementById(`${this.id}-new-price-input`)
+        const newCourseInput = document.getElementById(`${this.id}-new-course-input`)
         newPriceInput.value = this.price
+        newCourseInput.value = this.course
     }
 
     changePrice() {
@@ -64,14 +80,25 @@ export class Vehicle {
         }
     }
 
+    changeCourse(){
+        this.course =document.getElementById(`${this.id}-new-course-input`)
+        const liElements =Array.from(document.getElementById(this.id).querySelector("ul").getElementsByTagName("li"))
+        const courseElement = liElements.find((li)=>li.innerHTML.includes("Course:"))
+        if(courseElement){
+            courseElement.innerHTML=`Course: ${this.course.toString()} km`
+        }
+    }
+
     changeCondition(newCondition) {
         this.condition = newCondition
         const ulElements = document.getElementById(this.id).querySelector("ul")
         const liElements = ulElements?.children && Array.from(ulElements.children)
         liElements?.forEach((li) => {
-            if (li.innerHTML.includes("Condition:")) {
+            if (li.innerHTML.includes("Condition:")) 
+            {
                 li.innerHTML = `Condition: ${newCondition}`
-            }
-        })
+        }
+        
+    })
     }
 }

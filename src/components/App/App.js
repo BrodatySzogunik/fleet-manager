@@ -64,6 +64,16 @@ const editPriceEventListeners = () => fleet.forEach((vehicle) => editPriceListen
 
 const editConditionEventListeners = () => fleet.forEach((vehicle) => editConditionListener(vehicle))
 
+const editCourseEventListeners = () => fleet.forEach((vehicle)=> editCourseListener(vehicle))
+
+const editCourseListener = (vehicle)=>{
+    const courseButton = document.getElementById(`${vehicle.id}-change-course-button`)
+    courseButton.addEventListener("click",()=>{
+        vehicle.changeCourse()
+        generateSummary()
+    })
+}
+
 const editPriceListener = (vehicle) => {
     const priceButton = document.getElementById(`${vehicle.id}-change-price-button`)
     priceButton.addEventListener("click", () => {
@@ -154,6 +164,7 @@ export const refreshView = () => {
     editMenuEventListeners()
     editPriceEventListeners()
     editConditionEventListeners()
+    editCourseEventListeners()
     addNewVehicleListener()
     formSubmitListener()
 }
