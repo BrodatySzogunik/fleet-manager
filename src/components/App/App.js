@@ -1,5 +1,5 @@
 import { Vehicle } from "./../../common/Vehicle.class.js"
-import { addInputsValidation, removeInputsValidation, setDefaultInputsValue } from "./../../common/helpers.js"
+import { addInputsValidation, removeInputsValidation, setDefaultInputsValue, vechicleTypes } from "./../../common/helpers.js"
 import { validateFulfilledData } from "./../../common/validation.js"
 
 let fleet = [
@@ -66,6 +66,8 @@ const editConditionEventListeners = () => fleet.forEach((vehicle) => editConditi
 
 const editCourseEventListeners = () => fleet.forEach((vehicle)=> editCourseListener(vehicle))
 
+const editTypeEventListeners = () => fleet.forEach((vehicle) => editTypeListener(vehicle)) 
+
 const editCourseListener = (vehicle)=>{
     const courseButton = document.getElementById(`${vehicle.id}-change-course-button`)
     courseButton.addEventListener("click",()=>{
@@ -80,6 +82,15 @@ const editPriceListener = (vehicle) => {
         vehicle.changePrice()
         generateSummary()
     })
+}
+
+const editTypeListener = (vehicle) =>{
+    const typeButton =document.getElementById(`${vehicle.id}-type-select`)
+    typeButton.addEventListener("change",(event) => {
+        const newValue = event.target.value
+        vehicle.changeType(newValue)
+    })
+
 }
 
 const editConditionListener = (vehicle) => {
@@ -134,6 +145,8 @@ const addVehicleProcess = () => {
         editMenuListener(newVehicle)
         editPriceListener(newVehicle)
         editConditionListener(newVehicle)
+        editCourseEventListeners(newVehicle)
+        editTypeEventListeners(newVehicle)
         deleteEventListener(newVehicle)
         newVehicle.assignDefaultInputValue()
         setDefaultInputsValue()
@@ -165,6 +178,7 @@ export const refreshView = () => {
     editPriceEventListeners()
     editConditionEventListeners()
     editCourseEventListeners()
+    editTypeEventListeners()
     addNewVehicleListener()
     formSubmitListener()
 }

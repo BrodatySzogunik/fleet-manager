@@ -1,5 +1,5 @@
 import { v4 } from "uuid"
-import { vehicleConditions } from "./helpers.js"
+import { vehicleConditions,vechicleTypes } from "./helpers.js"
 
 export class Vehicle {
     constructor(type, brand, model, course, price, condition) {
@@ -50,7 +50,12 @@ export class Vehicle {
                                 ${vehicleConditions.map((condition) => `<option>${condition.label}</option>`).join("")}
                             </select>
                         </div>
-                        </div class="d-flex">
+                        <div class="mt-1">
+                            <select id="${this.id}-type-select" class="form-control">
+                                ${vechicleTypes.map((carType) => `<option>${carType.label}</option>`).join("")}
+                            </select>
+                        </div>
+                        <div class="d-flex mt-1">
                             <input id="${this.id}-new-course-input" placeholder="New Course" class="form-control" type="number"/>
                             <button id="${this.id}-change-course-button" class="ml-2 btn btn-success" style="width: 150px;">Edit Course</button>
                         </div>
@@ -81,13 +86,27 @@ export class Vehicle {
     }
 
     changeCourse(){
-        this.course =document.getElementById(`${this.id}-new-course-input`)
+        const newCourseInput =document.getElementById(`${this.id}-new-course-input`)
+        this.course=Number(newCourseInput.value).toFixed(0)
+
         const liElements =Array.from(document.getElementById(this.id).querySelector("ul").getElementsByTagName("li"))
         const courseElement = liElements.find((li)=>li.innerHTML.includes("Course:"))
         if(courseElement){
             courseElement.innerHTML=`Course: ${this.course.toString()} km`
         }
     }
+
+    changeType(newType){
+        this.type= newType
+        const ulElements =document.getElementById(this.id).querySelector("ul")
+        const liElements = ulElements?.children && Array.from(ulElements.children)
+        liElements?.forEach((li)=>{
+            if (li.innerHTML.includes("Type:")){
+                li.innerHTML =`Type: ${newType}`
+            }})
+        }
+
+    
 
     changeCondition(newCondition) {
         this.condition = newCondition

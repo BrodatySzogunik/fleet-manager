@@ -12,6 +12,20 @@ export const vehicleConditions = [
         label: "Wrecked"
     }
 ]
+export const vechicleTypes=[
+    {
+        key:"Car",
+        label:"Car"
+    },
+    {
+        key:"Truck",
+        label:"Truck"
+    },
+    {
+        key:"Motor",
+        label:"Motor"
+    }
+]
 
 
 export const addInputsValidation = (inputErrors) => {
