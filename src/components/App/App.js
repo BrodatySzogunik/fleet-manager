@@ -68,6 +68,65 @@ const editCourseEventListeners = () => fleet.forEach((vehicle)=> editCourseListe
 
 const editTypeEventListeners = () => fleet.forEach((vehicle) => editTypeListener(vehicle)) 
 
+const changePossitionUpListeners = () => fleet.forEach((vehicle)=>changePossitionUpListener(vehicle))
+
+const changePossitionDownListeners = () => fleet.forEach((vehicle)=>changePossitionDownListener(vehicle))
+
+const changePossitionUpListener = (vehicle) =>{
+    const moveUpButton = document.getElementById(`${vehicle.id}-move-up`)
+    moveUpButton.addEventListener("click",()=>{
+        chnagePossitionUp(vehicle.id)
+        
+        
+    })
+}
+
+const chnagePossitionUp=(vehicleId)=>{
+    const index = fleet.findIndex((e)=>{
+        return e.id==vehicleId
+    })
+
+    if(index!=0){
+    const elementToMove=document.getElementById(vehicleId)
+    const elementBefore=elementToMove.previousElementSibling
+    elementToMove.parentElement.insertBefore(elementToMove,elementBefore)
+    console.log(index)
+    var element = fleet[index];
+    fleet.splice(index, 1);
+    fleet.splice(index-1, 0, element);
+    }
+    console.log(fleet)
+    
+}
+
+const changePossitionDownListener = (vehicle) =>{
+    const moveUpButton = document.getElementById(`${vehicle.id}-move-down`)
+    moveUpButton.addEventListener("click",()=>{
+        chnagePossitionDown(vehicle.id)
+        
+        
+    })
+}
+
+const chnagePossitionDown=(vehicleId)=>{
+    const index = fleet.findIndex((e)=>{
+        return e.id==vehicleId
+    })
+
+    if(index!=fleet.length-1){
+    const elementToMove=document.getElementById(vehicleId)
+    const elementAfter=elementToMove.nextElementSibling
+    elementToMove.parentElement.insertBefore(elementAfter,elementToMove)
+    console.log(index)
+    var element = fleet[index];
+    fleet.splice(index, 1);
+    fleet.splice(index+1, 0, element);
+    }
+    console.log(fleet)
+    
+}
+
+
 const editCourseListener = (vehicle)=>{
     const courseButton = document.getElementById(`${vehicle.id}-change-course-button`)
     courseButton.addEventListener("click",()=>{
@@ -150,6 +209,8 @@ const addVehicleProcess = () => {
         editConditionListener(newVehicle)
         editCourseEventListeners(newVehicle)
         editTypeEventListeners(newVehicle)
+        changePossitionUpListeners(newVehicle)
+        changePossitionDownListeners(newVehicle)
         deleteEventListener(newVehicle)
         newVehicle.assignDefaultInputValue()
         setDefaultInputsValue()
@@ -172,6 +233,7 @@ const formSubmitListener = () => {
     })
 }
 
+
 export const refreshView = () => {
     generateMainContent()
     generateHeader()
@@ -182,6 +244,8 @@ export const refreshView = () => {
     editConditionEventListeners()
     editCourseEventListeners()
     editTypeEventListeners()
+    changePossitionUpListeners()
+    changePossitionDownListeners()
     addNewVehicleListener()
     formSubmitListener()
 }

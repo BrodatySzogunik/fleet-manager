@@ -41,10 +41,16 @@ export class Vehicle {
                         <li class="list-group-item">Condition: ${this.condition}</li>
                     </ul>
                     <div class="card-footer row bg-transparent">
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-4 col-lg-4">
                             <button id="${this.id}-edit-button" class="btn btn-secondary w-100">Edit <i class="fas fa-edit"></i></button>
                         </div>
-                        <div class="col-md-6 col-lg-4 offset-lg-4">
+                        <div class="col-md-2 col-lg-2">
+                            <button id="${this.id}-move-up" class="btn btn-secondary w-100"><i class="fas fa-chevron-up"></i></button>
+                        </div>
+                        <div class="col-md-2 col-lg-2">
+                            <button id="${this.id}-move-down" class="btn btn-secondary w-100"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="col-md-4 col-lg-4 ">
                             <button id="${this.id}-delete-button" class="btn btn-danger w-100">Delete <i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
@@ -74,7 +80,6 @@ export class Vehicle {
         
         }
     
-
     assignDefaultInputValue() {
         const newPriceInput = document.getElementById(`${this.id}-new-price-input`)
         const newCourseInput = document.getElementById(`${this.id}-new-course-input`)
