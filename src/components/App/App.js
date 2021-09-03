@@ -1,5 +1,5 @@
 import { Vehicle } from "./../../common/Vehicle.class.js"
-import { addInputsValidation, removeInputsValidation, setDefaultInputsValue, vechicleTypes } from "./../../common/helpers.js"
+import { addInputsValidation, removeInputsValidation, setDefaultInputsValue, vechicleTypes,clearErrorBorder,addErrorBorder } from "./../../common/helpers.js"
 import { validateFulfilledData } from "./../../common/validation.js"
 
 let fleet = [
@@ -130,8 +130,11 @@ const deleteEventListener = (vehicle) => {
 const addVehicleProcess = () => {
     const { errors, data } = validateFulfilledData()
 
+
+
     if (errors.length > 0) {
         addInputsValidation(errors)
+        addErrorBorder(errors)
     } else {
         removeInputsValidation()
 

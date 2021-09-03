@@ -20,12 +20,20 @@ export class Vehicle {
             default : return ""
         }
     }
+    chooseBorder(){
+        switch(this.condition){
+            case "New": return "border-success"
+            case "Used":  return "border-warning"
+            case "Wrecked": return "border-danger"
+            default: return""
+        }
+    }
 
     generateItem() {
         return `
             <div id="${this.id}" class="col-md-12 my-md-2 col-lg-4">
-                <div class="card border border-secondary">
-                    <div class="card-title text-center"><h3 class="my-2">${this.brand} ${this.model} <i class="fas ${this.chooseIcon()}"></i></h3></div>
+                <div id="${this.id}-card" class="card border ${this.chooseBorder()}">
+                    <div class="card-title text-center"><h3 class="my-2">${this.brand} ${this.model} <i id="${this.id}-type-icon" class="fas ${this.chooseIcon()}"></i></h3></div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item test">Type: ${this.type}</li>
                         <li class="list-group-item">Course: ${this.course} km</li>
@@ -97,7 +105,15 @@ export class Vehicle {
     }
 
     changeType(newType){
+        const typeIcon = document.getElementById(`${this.id}-type-icon`)
+        const classList=Array.from(typeIcon.classList)
+        classList.forEach((item)=>{
+            typeIcon.classList.remove(item)
+        })
+            
         this.type= newType
+        typeIcon.classList.add("fas")
+        typeIcon.classList.add(this.chooseIcon())
         const ulElements =document.getElementById(this.id).querySelector("ul")
         const liElements = ulElements?.children && Array.from(ulElements.children)
         liElements?.forEach((li)=>{
@@ -109,7 +125,20 @@ export class Vehicle {
     
 
     changeCondition(newCondition) {
+        const card = document.getElementById(`${this.id}-card`)
+        const classList=Array.from(card.classList)
+        classList.forEach((item)=>{
+        card.classList.remove(item)
+        })
+
+
+
         this.condition = newCondition
+
+        card.classList.add("card")
+        card.classList.add("border")
+        card.classList.add(this.chooseBorder())
+
         const ulElements = document.getElementById(this.id).querySelector("ul")
         const liElements = ulElements?.children && Array.from(ulElements.children)
         liElements?.forEach((li) => {

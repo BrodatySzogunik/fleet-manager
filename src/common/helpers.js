@@ -27,6 +27,18 @@ export const vechicleTypes=[
     }
 ]
 
+export const clearErrorBorder=(e)=>{
+    
+        e.classList.remove("border")
+        e.classList.remove("border-danger")
+
+}
+export const addErrorBorder=(inputErrors)=>{
+    inputErrors.forEach(e=>{
+        e.classList.add("border")
+        e.classList.add("border-danger")
+    })
+}
 
 export const addInputsValidation = (inputErrors) => {
     console.log("Put validations here <---", { inputErrors })

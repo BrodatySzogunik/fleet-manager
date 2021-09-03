@@ -1,3 +1,4 @@
+import{clearErrorBorder}from "./helpers.js"
 export const validateFulfilledData = () => {
     const newVehicleType = document.getElementById("type-select")
     const newVehicleBrand = document.getElementById("brand-input")
@@ -13,6 +14,7 @@ export const validateFulfilledData = () => {
         newVehiclePrice
     ].reduce((acc, inputEl) => {
         !inputEl.value && acc.push(inputEl)
+        clearErrorBorder(inputEl)
         return acc
     }, [])
 
