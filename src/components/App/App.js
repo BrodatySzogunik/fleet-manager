@@ -72,12 +72,70 @@ const changePossitionUpListeners = () => fleet.forEach((vehicle)=>changePossitio
 
 const changePossitionDownListeners = () => fleet.forEach((vehicle)=>changePossitionDownListener(vehicle))
 
+const moveToTopListeners= () => fleet.forEach((vehicle)=>moveToTopListener(vehicle))
+
+const moveToBottomListeners = () => fleet.forEach((vehicle) => moveToBottomListener(vehicle))
+
+const toogleSelectedConditionListeners = () => fleet.forEach((vehicle) => toogleSelectedCondition(vehicle))
+
+const toogleSelectedCondition = (vehicle) =>{
+    const selectCondition =document.getElementById(`${vehicle.id}-${vehicle.condition}`)
+    console.log(selectCondition)
+    selectCondition.setAttribute("selected",true)
+}
+
+const moveToBottomListener=(vehicle)=>{
+    const moveToBottomButton = document.getElementById(`${vehicle.id}-move-bottom`)
+    moveToBottomButton.addEventListener("click",()=>{
+        moveToBottom(vehicle.id)
+    })
+}
+
+const moveToBottom=(vehicleId)=>{
+    const index = fleet.findIndex((e)=>{
+        return e.id==vehicleId
+    })
+
+    if(index!=fleet.length-1){
+    const elementToMove=document.getElementById(vehicleId)
+    elementToMove.parentElement.insertBefore(elementToMove,elementToMove.parentElement.lastChild)
+    console.log(index)
+    var element = fleet[index];
+    fleet.splice(index, 1);
+    fleet.splice(fleet.length, 0, element);
+    }
+    console.log(fleet)
+}
+
+
+const moveToTopListener=(vehicle)=>{
+    const moveToTopButton = document.getElementById(`${vehicle.id}-move-top`)
+    moveToTopButton.addEventListener("click",()=>{
+        moveToTop(vehicle.id)
+    })
+}
+
+const moveToTop=(vehicleId)=>{
+    const index = fleet.findIndex((e)=>{
+        return e.id==vehicleId
+    })
+
+    if(index!=0){
+    const elementToMove=document.getElementById(vehicleId)
+    elementToMove.parentElement.insertBefore(elementToMove,elementToMove.parentElement.firstChild)
+    console.log(index)
+    var element = fleet[index];
+    fleet.splice(index, 1);
+    fleet.splice(0, 0, element);
+    }
+    console.log(fleet)
+
+}
+
 const changePossitionUpListener = (vehicle) =>{
     const moveUpButton = document.getElementById(`${vehicle.id}-move-up`)
     moveUpButton.addEventListener("click",()=>{
-        chnagePossitionUp(vehicle.id)
-        
-        
+        chnagePossitionUp(vehicle.id)        
     })
 }
 
@@ -123,7 +181,6 @@ const chnagePossitionDown=(vehicleId)=>{
     fleet.splice(index+1, 0, element);
     }
     console.log(fleet)
-    
 }
 
 
@@ -211,6 +268,10 @@ const addVehicleProcess = () => {
         editTypeEventListeners(newVehicle)
         changePossitionUpListeners(newVehicle)
         changePossitionDownListeners(newVehicle)
+        
+        moveToBottomListeners(newVehicle)
+        moveToTopListeners(newVehicle)
+        toogleSelectedConditionListeners(newVehicle)
         deleteEventListener(newVehicle)
         newVehicle.assignDefaultInputValue()
         setDefaultInputsValue()
@@ -246,6 +307,9 @@ export const refreshView = () => {
     editTypeEventListeners()
     changePossitionUpListeners()
     changePossitionDownListeners()
+    moveToTopListeners()
+    moveToBottomListeners()
+    toogleSelectedConditionListeners()
     addNewVehicleListener()
     formSubmitListener()
 }

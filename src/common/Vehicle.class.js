@@ -41,17 +41,21 @@ export class Vehicle {
                         <li class="list-group-item">Condition: ${this.condition}</li>
                     </ul>
                     <div class="card-footer row bg-transparent">
-                        <div class="col-md-4 col-lg-4">
-                            <button id="${this.id}-edit-button" class="btn btn-secondary w-100">Edit <i class="fas fa-edit"></i></button>
+                        <div class="col-md-3 col-lg-3">
+                            <button id="${this.id}-edit-button" class="btn btn-secondary w-100 h-100 ">Edit <i class="fas fa-edit"></i></button>
                         </div>
-                        <div class="col-md-2 col-lg-2">
+                        <div class="col-md-2 col-lg-2 ">
+                            <button id="${this.id}-move-top" class="btn btn-secondary w-100 h-100"><i class="fas fa-angle-double-up"></i></button>
+                        </div>
+                        <div class="col-md-2 col-lg-2 ">
                             <button id="${this.id}-move-up" class="btn btn-secondary w-100"><i class="fas fa-chevron-up"></i></button>
-                        </div>
-                        <div class="col-md-2 col-lg-2">
                             <button id="${this.id}-move-down" class="btn btn-secondary w-100"><i class="fas fa-chevron-down"></i></button>
                         </div>
-                        <div class="col-md-4 col-lg-4 ">
-                            <button id="${this.id}-delete-button" class="btn btn-danger w-100">Delete <i class="fas fa-trash-alt"></i></button>
+                        <div class="col-md-2 col-lg-2 ">
+                            <button id="${this.id}-move-bottom" class="btn btn-secondary w-100 h-100"><i class="fas fa-angle-double-down"></i></button>
+                        </div>
+                        <div class="col-md-3 col-lg-3 ">
+                            <button id="${this.id}-delete-button" class="btn btn-danger w-100 h-100">Delete <i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                     <div id="settings-container" class="d-none p-2">
@@ -60,12 +64,12 @@ export class Vehicle {
                             <button id="${this.id}-change-price-button" class="ml-2 btn btn-success" style="width: 150px;">Edit price</button>
                         </div>
                         <div class="mt-1">
-                            <select id="${this.id}-condition-select" class="form-control">
-                                ${vehicleConditions.map((condition) => `<option>${condition.label}</option>`).join("")}
+                            <select id="${this.id}-condition-select" class="form-control" >
+                                ${vehicleConditions.map((condition) => `<option id="${this.id}-${condition.label}">${condition.label}</option>`).join("")}
                             </select>
                         </div>
                         <div class="mt-1">
-                            <select id="${this.id}-type-select" class="form-control">
+                            <select id="${this.id}-type-select" class="form-control" selected="${this.type}">
                                 ${vechicleTypes.map((carType) => `<option>${carType.label}</option>`).join("")}
                             </select>
                         </div>
