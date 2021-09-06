@@ -1,5 +1,5 @@
 import { Vehicle } from "./../../common/Vehicle.class.js"
-import { addInputsValidation, removeInputsValidation, setDefaultInputsValue, vechicleTypes,clearErrorBorder,addErrorBorder } from "./../../common/helpers.js"
+import { addInputsValidation, removeInputsValidation, setDefaultInputsValue,addErrorBorder } from "./../../common/helpers.js"
 import { validateFulfilledData } from "./../../common/validation.js"
 
 let fleet = [
@@ -77,6 +77,29 @@ const moveToTopListeners= () => fleet.forEach((vehicle)=>moveToTopListener(vehic
 const moveToBottomListeners = () => fleet.forEach((vehicle) => moveToBottomListener(vehicle))
 
 const toogleSelectedConditionListeners = () => fleet.forEach((vehicle) => toogleSelectedCondition(vehicle))
+
+const filterContentListener = () =>{
+    const filterButton=document.getElementById("filter-header-button")
+    // filterButton.preventDefault()
+
+    filterButton.addEventListener("click",()=>{
+        const filterContent=document.getElementById("filter-content")
+        const filterContentHidden=filterContent.classList.contains("d-none")
+        const filterIcon= filterButton.querySelector("i")
+        
+        if (filterContentHidden) {
+            filterContent.classList.add("d-block")
+            filterContent.classList.remove("d-none")
+            filterIcon.classList.remove("fa-chevron-down")
+            filterIcon.classList.add("fa-chevron-up")
+        } else {
+            filterContent.classList.remove("d-block")
+            filterContent.classList.add("d-none")
+            filterIcon.classList.remove("fa-chevron-up")
+            filterIcon.classList.add("fa-chevron-down")
+        }
+    })
+}
 
 const toogleSelectedCondition = (vehicle) =>{
     const selectCondition =document.getElementById(`${vehicle.id}-${vehicle.condition}`)
@@ -312,4 +335,5 @@ export const refreshView = () => {
     toogleSelectedConditionListeners()
     addNewVehicleListener()
     formSubmitListener()
+    filterContentListener()
 }

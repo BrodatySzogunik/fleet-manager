@@ -46,6 +46,30 @@
                     </div>
                 </div>
             </form>
+            <div>
+                <div id="filter-header" class="bg-secondary bg-gradient bg-opacity-10 w-100 d-flex justify-content-center align-items-center" style="height: 50px;">
+                    <h3 class="m-2">Filter</h3>
+                    <button id="filter-header-button" class="btn btn-secondary float-end"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div id="filter-content" class="w-100 d-none">   
+                   <div class="row my-1">
+                       <div class="col-md-12 my-md-1 col-lg-3">
+                           <select id="type-select" class="form-control">
+                               <option value="Truck">Truck</option>
+                               <option value="Car">Car</option>
+                               <option value="Motor">Motor</option>
+                           </select>
+                       </div>
+                       <div class="col-md-12 my-md-1 col-lg-3">
+                           <select id="condition-select" class="form-control">
+                               <option value="New">New</option>
+                               <option value="Used">Used</option>
+                               <option value="Wrecked">Wrecked</option>
+                           </select>
+                       </div>
+                   </div>
+                </div>
+            </div>
             <div id="summary"></div>
             <div id="main-content"></div>
         </div>
